@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Tycoon - Daily Predictions Analysis</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400|Inter:400,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3b5bfd;
+            --accent: #00c896;
+            --bg: #f8fafd;
+            --text: #222b45;
+            --muted: #6b7a99;
+            --feature1: #ff6b81;
+            --feature2: #2ed573;
+            --feature3: #ffa502;
+        }
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 5vw 1rem 5vw;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+        .navbar .logo i {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+        .navbar nav {
+            display: flex;
+            gap: 2rem;
+        }
+        .navbar nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .navbar nav a.active, .navbar nav a:hover {
+            color: var(--primary);
+        }
+        /* Removed .nav-actions and related button styles */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3rem 5vw 2rem 5vw;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-content {
+            max-width: 540px;
+            z-index: 2;
+        }
+        .hero-content h1 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 2.7rem;
+            font-weight: 700;
+            margin: 0 0 1.2rem 0;
+            color: var(--text);
+        }
+        .hero-content p {
+            color: var(--muted);
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+        }
+        .hero-content .cta {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .hero-content .cta .cta-btn {
+            background: var(--primary);
+            color: #fff;
+            padding: 0.9rem 2.2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .hero-content .cta .cta-btn:hover {
+            background: #2441b7;
+        }
+        .hero-content .cta .contact {
+            color: var(--muted);
+            font-size: 1rem;
+        }
+        .hero-visual {
+            flex: 1 1 350px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+        }
+        .hero-visual .circle-bg {
+            width: 420px;
+            height: 420px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .hero-visual .circle-bg i {
+            color: #fff;
+            font-size: 7rem;
+            opacity: 0.15;
+            position: absolute;
+            left: 30px;
+            top: 40px;
+        }
+        .hero-visual .circle-bg .sports-icon {
+            font-size: 7rem;
+            color: #fff;
+            opacity: 0.9;
+            z-index: 2;
+        }
+        @media (max-width: 1000px) {
+            .hero { flex-direction: column; text-align: center; }
+            .hero-visual { justify-content: center; margin-top: 2rem; }
+        }
+        @media (max-width: 600px) {
+            .navbar, .hero { padding: 1.2rem 2vw; }
+            .hero-visual .circle-bg { width: 260px; height: 260px; }
+            .hero-content h1 { font-size: 2rem; }
+        }
+        .features-section {
+            background: var(--bg);
+            padding: 3rem 0 2rem 0;
+        }
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .feature {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            min-width: 220px;
+            max-width: 270px;
+            text-align: center;
+        }
+        .feature .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        .feature.feature1 .icon { color: var(--feature1); }
+        .feature.feature2 .icon { color: var(--feature2); }
+        .feature.feature3 .icon { color: var(--feature3); }
+        .feature h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.15rem;
+            color: var(--text);
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .feature p {
+            color: var(--muted);
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo.jpg" alt="Sports Tycoon Logo" style="height:48px;vertical-align:middle;margin-right:0.7rem;"> 
+        </div>
+        <nav>
+            <a href="#" class="active">Home</a>
+            <a href="#features">Features</a>
+            <a href="#">Support</a>
+        </nav>
+        <!-- Removed Sign In and Sign Up buttons -->
+    </div>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Daily Sports Betting Predictions & Analysis</h1>
+            <p>Unlock your winning edge with Sports Tycoon. Get expert, data-driven predictions and actionable insights for smarter sports betting every day.</p>
+            <div class="cta">
+                <a href="#" class="cta-btn">Get Started Now</a>
+                <span class="contact">Call us <b>(0123) 456 – 789</b><br><span style="font-size:0.95em; color:var(--muted);">For any question or concern</span></span>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="circle-bg">
+                <i class="fa-solid fa-chart-line"></i>
+                <i class="fa-solid fa-futbol sports-icon"></i>
+            </div>
+        </div>
+    </section>
+    <section class="features-section" id="features">
+        <div class="features">
+            <div class="feature feature1">
+                <span class="icon"><i class="fa-solid fa-headset"></i></span>
+                <h3>24/7 Support</h3>
+                <p>Our team is always available to help you with your sports betting journey.</p>
+            </div>
+            <div class="feature feature2">
+                <span class="icon"><i class="fa-solid fa-chart-pie"></i></span>
+                <h3>Data-Driven Analysis</h3>
+                <p>We use advanced analytics and historical data to deliver accurate predictions.</p>
+            </div>
+            <div class="feature feature3">
+                <span class="icon"><i class="fa-solid fa-users"></i></span>
+                <h3>Community & Teamwork</h3>
+                <p>Join a community of smart bettors and share winning strategies together.</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
